@@ -1,0 +1,502 @@
+# -*- coding: utf-8 -*-
+
+#
+#
+#
+
+
+#:import MDCheckbox kivymd.selectioncontrols.MDCheckbox
+#:import MDTextField kivymd.textfields.MDTextField
+#:import MDTabbedPanel kivymd.tabs.MDTabbedPanel
+#:import MDTab kivymd.tabs.MDTab
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+<AppSetting>:
+    name:'appsetting'
+    MDLabel:
+        id:Show_Text_1
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.9}
+        halign: 'center'
+    MDRaisedButton:
+        id:color_picker
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.8}
+    MDLabel:
+        id:Show_Text_2
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.7}
+        halign: 'center'
+    MDRaisedButton:
+        id:main_game_back_ground
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.6}
+    MDLabel:
+        id:Show_Text_3
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
+        halign: 'center'
+    MDRaisedButton:
+        id:main_game_ball
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.4}
+
+    MDRaisedButton:
+        id:go_back_btn
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.3}
+    
+    
+
+
+<Selectpage>:
+    name:'first'
+    on_pre_enter:
+        if platform == 'ios': \
+        self.size_hint_y = None; \
+        self.height = root.height - dp(20)
+    MDRaisedButton:
+        id:maingame
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.6}
+    MDRaisedButton:
+        id:controll
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.8}
+    MDRaisedButton:
+        id:setting_btn
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.4}
+    MDLabel:
+        halign: 'center'
+        text:"Power By Kivy"
+        size :self.texture_size
+        pos_hint:    {'center_x': 0.5, 'center_y': 0.2}
+    
+<Settingpage>:
+    name:'setting'
+    MDLabel:
+        theme_text_color: 'Secondary'
+        pos_hint:    {'center_x': 0.3, 'center_y': 0.5}
+        size_hint:    None, None
+        id:show_two_player
+    MDCheckbox:
+        id:two_player
+        group:'playercount'
+        size_hint:    None, None
+        size:        dp(48), dp(48)
+        pos_hint:    {'center_x': 0.35, 'center_y': 0.5}
+    MDLabel:
+        theme_text_color: 'Secondary'
+        size_hint:    None, None
+        pos_hint:    {'center_x': 0.7, 'center_y': 0.5}
+        id:show_four_player
+    MDCheckbox:
+        id:four_player
+        group:        'playercount'
+        size_hint:    None, None
+        size:        dp(48), dp(48)
+        pos_hint:    {'center_x': 0.75, 'center_y': 0.5}
+    MDRaisedButton:
+        id:button01
+        pos_hint: {'center_x': 0.6, 'center_y': 0.15}
+    MDRaisedButton:
+        id:button02
+        pos_hint: {'center_x': 0.4, 'center_y': 0.15}
+
+
+
+<RoomInput>:
+    name:'room'
+    FloatLayout:
+        MDTextField:
+            id:mtextinput
+            text:''
+            hint_text:'roomid'
+            suggestion_text:"f"
+            size_hint:0.8,0.1
+            pos_hint:{'center_x': 0.5,'center_y': 0.9}
+        MDLabel:
+            theme_text_color: 'Primary'
+            pos_hint:    {'center_x': 0.2, 'center_y': 0.8}
+            size_hint:    None, None
+            id:player1_text
+        MDCheckbox:
+            id:player1
+            group:'player'
+            size_hint:    None, None
+            size:        dp(48), dp(48)
+            pos_hint:    {'center_x': 0.3, 'center_y': 0.8}
+            on_active:app.set_players("player1")
+        MDLabel:
+            theme_text_color: 'Primary'
+            size_hint:    None, None
+            pos_hint:    {'center_x': 0.5, 'center_y': 0.8}
+            id:player2_text
+        MDCheckbox:
+            id:player2
+            group:        'player'
+            size_hint:    None, None
+            size:        dp(48), dp(48)
+            pos_hint:    {'center_x': 0.6, 'center_y': 0.8}
+            on_active:app.set_players("player2")
+        ScrollView:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            size_hint_y:0.6
+            do_scroll_x: False
+
+            MDList:
+                id:mylist
+        MDRaisedButton:
+            id:button01
+            pos_hint: {'center_x': 0.6, 'center_y': 0.05}
+        MDRaisedButton:
+            id:button02
+            pos_hint: {'center_x': 0.4, 'center_y': 0.05}
+
+
+
+<Mainpage>:
+    name:'main'
+  
+    
+  
+    MDRaisedButton:
+        id:go_back_btn
+        size:        dp(60), dp(60)
+        pos_hint: {'center_x': 0.8, 'center_y': 0.9}
+    Button:
+        #id:'left_btn'
+        text:"<"
+        on_press:app.left()
+        pos_hint:{'x':0.01, 'center_y':0.6}
+        size_hint:.48,.5
+    Button:
+        #id:'right_btn'
+        text:">"
+        on_press:app.right()
+        pos_hint:{'x':0.51, 'center_y':0.6}
+        size_hint:.48,.5
+    
+    MDRaisedButton:
+        id:skill_1
+        text:"skill_1"
+        pos_hint:{'center_x':0.2, 'center_y':0.2}
+        size_hint:.2,.2
+    ProgressBar
+        id:cd_1
+        pos_hint:{'center_x':0.2, 'center_y':0.05}
+        max:600
+        size_hint:.2,.2
+    MDRaisedButton:
+        id:skill_2
+        text:"skill_2"
+        pos_hint:{'center_x':0.5, 'center_y':0.2}
+        size_hint:.2,.2
+
+    ProgressBar
+        id:cd_2
+        pos_hint:{'center_x':0.5, 'center_y':0.05}
+        max:600
+        size_hint:.2,.2
+    MDRaisedButton:
+        id:skill_3
+        text:"skill_3"
+        pos_hint:{'center_x':0.8, 'center_y':0.2}
+        size_hint:.2,.2
+    ProgressBar
+        id:cd_3
+        pos_hint:{'center_x':0.8, 'center_y':0.05}
+        max:600
+        size_hint:.2,.2
+        
+       
+
+
+
+<PongBall>:
+    size: 50, 50 
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size   
+            source:'123.jpg'       
+
+<PongPaddle>:
+    size: 25, 200
+    canvas:
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+<Gamepage>:
+    name:'mygame'
+    Screen:
+        id:game
+
+<PongGame>:
+    
+    ball: pong_ball
+    player1: player_left
+    player2: player_right
+
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "background.jpg"
+        Rectangle:
+            pos: self.center_x-5, 0
+            size: 10, self.height
+    MDRaisedButton:
+        id:go_back_btn
+        size:        dp(60), dp(20)
+        pos_hint: {'center_x': 1, 'center_y': 0}
+        on_press:app.go_setting1()
+    MDLabel:
+        theme_text_color: 'Secondary'
+        font_size: 50
+        halign: 'center'
+        width:root.width
+        #center_x: root.width /3
+        pos_hint_x:{'center_x':0.5}
+        top: root.top - 3
+        text : str(root.client)
+        color: get_color_from_hex('#8EC5DF')
+
+    Label:
+        font_size: 70  
+        center_x: root.width / 4
+        top: root.top - 50
+        text: str(root.player1.score)
+        
+    Label:
+        font_size: 70  
+        center_x: root.width * 3 / 4
+        top: root.top - 50
+        text: str(root.player2.score)
+    
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+        
+    PongPaddle:
+        id: player_left
+        x: root.x
+        center_y: root.center_y
+        
+    PongPaddle:
+        id: player_right
+        x: root.width-self.width
+        center_y: root.center_y
+
+<PongGame1>:
+    
+    ball: pong_ball
+    player1: player_left
+    player2: player_right
+    player3: player_left1
+    player4: player_right1
+    
+    canvas:
+        Rectangle:
+            pos: self.center_x-5, 0
+            size: 10, self.height
+    Label:
+        font_size: 20
+        center_x: root.width / 1.4
+        top: root.top - 5
+        text : str(root.client)
+    Label:
+        font_size: 70  
+        center_x: root.width / 4
+        top: root.top - 50
+        text: str(root.player1.score)
+        
+    Label:
+        font_size: 70  
+        center_x: root.width * 3 / 4
+        top: root.top - 50
+        text: str(root.player2.score)
+    
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+        
+    PongPaddle:
+        id: player_left
+        x: root.x
+        center_y: root.center_y
+    PongPaddle:
+        id: player_left1
+        x: root.x+ 40   
+        center_y: root.center_y      
+    PongPaddle:
+        id: player_right
+        x: root.width-self.width
+        center_y: root.center_y
+    PongPaddle:
+        id: player_right1
+        x: root.width-self.width -40
+        center_y: root.center_y
+
+
+
+
+
+
+<mColorSelector>:
+    size: dp(40), dp(40)
+    pos: self.pos
+    size_hint: (None, None)
+    canvas:
+        Color:
+            rgba: root.rgb_hex(root.color_name)
+        Ellipse:
+            size: self.size
+            pos: self.pos
+
+<PrimaryColorSelector@mColorSelector>:
+    on_release: root.change_color(root.color_name)
+
+<ColorPiker>
+    name:"color"
+    size_hint: (None, None)
+    size: dp(284), dp(120)+dp(290)
+    pos_hint: {'center_x': .5, 'center_y': .5}
+    canvas:
+        Color:
+            rgb: app.theme_cls.primary_color
+        Rectangle:
+            size: self.width, dp(120)
+            pos: root.pos[0], root.pos[1] + root.height-dp(120)
+        Color:
+            rgb: app.theme_cls.bg_normal
+        Rectangle:
+            size: self.width, dp(290)
+            pos: root.pos[0], root.pos[1] + root.height-(dp(120)+dp(290))
+
+    MDFlatButton:
+        pos: root.pos[0]+root.size[0]-self.width-dp(10), root.pos[1] + dp(10)
+        text: "Close"
+        on_release: root.dismiss()
+    MDLabel:
+        id:Headline
+        font_style: "Headline"
+        text: "Change Color"
+        size_hint: (None, None)
+        size: dp(160), dp(50)
+        pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+        theme_text_color: 'Custom'
+        text_color: root.specific_text_color
+    MDTabbedPanel:
+        size_hint: (None, None)
+        size: root.width, root.height-dp(135)
+        pos_hint: {'center_x': 0.5, 'center_y': 0.475}
+        id: tab_panel
+        tab_display_mode:'text'
+
+        MDTab:
+            id:color_tab
+            name: 'color'
+            text: "Color"
+            BoxLayout:
+                spacing: dp(4)
+                size_hint: (None, None)
+                size: dp(270), root.height  # -dp(120)
+                pos_hint: {'center_x': 0.532, 'center_y': 0.89}
+                orientation: 'vertical'
+                BoxLayout:
+                    size_hint: (None, None)
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    size: dp(230), dp(40)
+                    pos: self.pos
+                    halign: 'center'
+                    orientation: 'horizontal'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Red'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Pink'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Purple'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'DeepPurple'
+                BoxLayout:
+                    size_hint: (None, None)
+                    pos_hint: {'center_x': .5, 'center_y': 0.5}
+                    size: dp(230), dp(40)
+                    pos: self.pos
+                    halign: 'center'
+                    orientation: 'horizontal'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Indigo'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Blue'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'LightBlue'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Cyan'
+                BoxLayout:
+                    size_hint: (None, None)
+                    pos_hint: {'center_x': .5, 'center_y': 0.5}
+                    size: dp(230), dp(40)
+                    pos: self.pos
+                    halign: 'center'
+                    orientation: 'horizontal'
+                    padding: 0, 0, 0, dp(1)
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Teal'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Green'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'LightGreen'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Lime'
+                BoxLayout:
+                    size_hint: (None, None)
+                    pos_hint: {'center_x': .5, 'center_y': 0.5}
+                    size: dp(230), dp(40)
+                    pos: self.pos
+                    orientation: 'horizontal'
+                    halign: 'center'
+                    padding: 0, 0, 0, dp(1)
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Yellow'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Amber'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Orange'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'DeepOrange'
+                BoxLayout:
+                    size_hint: (None, None)
+                    pos_hint: {'center_x': .5, 'center_y': 0.5}
+                    size: dp(230), dp(40)
+                    #pos: self.pos
+                    orientation: 'horizontal'
+                    padding: 0, 0, 0, dp(1)
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Brown'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'Grey'
+                    BoxLayout:
+                        PrimaryColorSelector:
+                            color_name: 'BlueGrey'
+                    BoxLayout:
+                        MDIconButton:
+                            size: dp(40), dp(40)
+                            size_hint: (None, None)
+                            canvas:
+                                Color:
+                                    rgba: app.theme_cls.bg_normal
+                                Ellipse:
+                                    size: self.size
+                                    pos: self.pos
+                            disabled: True
